@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart'; // No longer needed
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/utils/app_constant.dart';
 import '../../../core/utils/colors.dart';
-import '../data/store_data.dart';
+import '../data/store_data.dart'; // Make sure this path is correct
 import '../notifiers/cart_notifier.dart';
 import '../widgets/category_selector.dart';
 import '../widgets/subcategory_section.dart';
@@ -95,6 +97,7 @@ class _StoreScreenState extends State<StoreScreen> {
           ),
         ),
 
+        // --- 2. THE OP ACITY CONTAINER ---
         Container(
           height: 280.h,
           decoration: BoxDecoration(
@@ -111,10 +114,14 @@ class _StoreScreenState extends State<StoreScreen> {
           ),
         ),
 
+        // --- 3. YOUR CONTENT (Correct Layout) ---
+        // This Column now holds all the content
+        // and is sized to the container
         Container(
           height: 280.h,
           child: Column(
             children: [
+              // --- Row 1: Arrow, Title, Cart ---
               SafeArea(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.w),
@@ -130,6 +137,7 @@ class _StoreScreenState extends State<StoreScreen> {
                           }
                         },
                       ),
+                      // Title
                       Text(
                         "Walmart",
                         style: TextStyle(
@@ -138,11 +146,16 @@ class _StoreScreenState extends State<StoreScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      // Cart
                       _buildCartIcon(),
                     ],
                   ),
                 ),
               ),
+
+              // --- Middle Content: Avatar & Address ---
+              // This Expanded pushes the content to the
+              // vertical center of the *remaining* space.
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -164,16 +177,24 @@ class _StoreScreenState extends State<StoreScreen> {
                   ],
                 ),
               ),
+
+              // --- Spacer for the Search Bar ---
+              // We leave empty space at the bottom, because the
+              // search bar is Positioned over this area.
               SizedBox(height: 60.h),
             ],
           ),
         ),
+
+        // --- 4. THE SEARCH BAR (Positioned) ---
         _buildFloatingSearchBar(),
       ],
     );
   }
 
+  // --- Helper Widget: Floating Search Bar ---
   Widget _buildFloatingSearchBar() {
+    // This is positioned at the bottom of the Stack
     return Positioned(
       bottom: 16.h,
       left: 16.w,
@@ -202,7 +223,7 @@ class _StoreScreenState extends State<StoreScreen> {
     return ValueListenableBuilder<Map<String, int>>(
       valueListenable: cartNotifier,
       builder: (context, cart, child) {
-        final totalItems = cart.length;
+        final totalItems = getCartTotalItemCount(cart);
 
         return Stack(
           alignment: Alignment.center,
