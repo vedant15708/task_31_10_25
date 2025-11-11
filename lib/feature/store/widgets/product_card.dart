@@ -31,20 +31,20 @@ class ProductCard extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.r),
             ),
-
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+
                 Stack(
                   children: [
+                    // The Image
                     Container(
                       height: 120.h,
-                      width: double.infinity,
-                      child: Image.asset(
-                        product.image,
-                        fit: BoxFit.cover,
-                      ),
+                      color: Colors.grey[100],
+                      alignment: Alignment.center,
+                      child: Text(product.image,
+                          style: TextStyle(fontSize: 50.sp)),
                     ),
 
                     if (!inCart)
@@ -61,39 +61,40 @@ class ProductCard extends StatelessWidget {
                       ),
                   ],
                 ),
-
-                Padding(
-                  padding: EdgeInsets.all(8.r),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "\$${product.price.toStringAsFixed(0)}",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16.h),
-                          ),
-                          Text(
-                            product.weight,
-                            style: TextStyle(
-                                fontSize: 12.sp, color: AppColors.textGrey),
-                          ),
-                        ],
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.r),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              "\$${product.price.toStringAsFixed(0)}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16.sp),
+                            ),
+                            SizedBox(height: 4.h),
+                            Text(
+                              product.name,
+                              style: TextStyle(fontSize: 14.sp),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 4.h),
+                            Text(
+                              product.weight,
+                              style: TextStyle(
+                                  fontSize: 12.sp, color: AppColors.textGrey),
+                            ),
+                          ],
+                        ),
                       ),
-
-                      SizedBox(height: 4.h),
-                      Text(
-                        product.name,
-                        style: TextStyle(fontSize: 15.h),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-
               ],
             ),
           ),
@@ -140,7 +141,7 @@ class ProductCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(30.r),
-        border: Border.all(color: AppColors.primary , width: 1),
+        border: Border.all(color: AppColors.lightGrey, width: 1),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),

@@ -34,55 +34,23 @@ class SubCategorySection extends StatelessWidget {
                 ),
                 Text(
                   AppConstants.moreText,
-                  style: TextStyle(fontSize: 14.sp, color: AppColors.black),
+                  style: TextStyle(fontSize: 14.sp, color: AppColors.primary),
                 ),
               ],
             ),
           ),
           SizedBox(height: 12.h),
-          Stack(
-            alignment: Alignment.centerRight,
-            children: [
-              SizedBox(
-                height: 200.h,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.only(left: 16.w, right: 60.w),
-                  clipBehavior: Clip.none,
-
-                  itemCount: subCategory.products.length,
-                  itemBuilder: (context, index) {
-                    final product = subCategory.products[index];
-                    return ProductCard(product: product);
-                  },
-                ),
-              ),
-
-              Positioned(
-                right: 16.w,
-                child: Container(
-                  width: 40.w,
-                  height: 40.w,
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    Icons.arrow_forward,
-                    color: AppColors.primary,
-                    size: 18.sp,
-                  ),
-                ),
-              ),
-
-            ],
+          SizedBox(
+            height: 240.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              itemCount: subCategory.products.length,
+              itemBuilder: (context, index) {
+                final product = subCategory.products[index];
+                return ProductCard(product: product);
+              },
+            ),
           ),
         ],
       ),
